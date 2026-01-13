@@ -1,0 +1,31 @@
+# 프로젝트 컨텍스트
+이 프로젝트는 Next.js 14 + Supabase 기반 간트차트 협업 플랫폼입니다.
+
+## 코딩 스타일
+- TypeScript strict 모드
+- 함수형 컴포넌트 + Hooks
+- async/await 사용 (Promise.then 금지)
+- 명확한 변수명 (약어 최소화)
+
+## 파일 구조 규칙
+- 서버 컴포넌트: async function, cookies() 사용
+- 클라이언트 컴포넌트: 'use client' 지시어
+- API 라우트: NextResponse 반환
+
+## 필수 패턴
+1. 모든 API 호출에 에러 핸들링
+2. 낙관적 UI 업데이트 (Zustand)
+3. RLS 정책으로 권한 제어
+4. Zod로 입력 유효성 검사
+
+## 금지 사항
+- 인라인 스타일 (Tailwind 사용)
+- any 타입 (명시적 타입 정의)
+- console.log (프로덕션 코드)
+
+## 디자인 원칙
+- Monday.com 스타일의 깔끔한 UI
+- Primary: #5B4FFF
+- Success: #00C875
+- Warning: #FDAB3D
+- Danger: #E2445C
