@@ -62,6 +62,32 @@ gantt-platform/
 └── supabase/             # 데이터베이스 마이그레이션
 ```
 
+## 배포
+
+### Vercel 배포
+
+1. [Vercel](https://vercel.com)에 로그인
+2. 새 프로젝트 생성
+3. GitHub 리포지토리 연결
+4. 환경변수 설정:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXT_PUBLIC_APP_URL`
+5. 배포 완료!
+
+### GitHub Actions를 통한 자동 배포
+
+`.github/workflows/deploy.yml` 파일이 포함되어 있어 main 브랜치에 푸시 시 자동으로 Vercel에 배포됩니다.
+
+필요한 GitHub Secrets:
+- `VERCEL_TOKEN`: Vercel API 토큰
+- `VERCEL_ORG_ID`: Vercel 조직 ID
+- `VERCEL_PROJECT_ID`: Vercel 프로젝트 ID
+- `NEXT_PUBLIC_SUPABASE_URL`: Supabase URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase Anon Key
+- `SUPABASE_SERVICE_ROLE_KEY`: Supabase Service Role Key
+
 ## 라이선스
 
 MIT

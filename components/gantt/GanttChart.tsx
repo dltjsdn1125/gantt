@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Gantt from 'frappe-gantt';
+import 'frappe-gantt/dist/frappe-gantt.css';
 import type { Task, GanttTask as GanttTaskType } from '@/types/database.types';
 import { format } from 'date-fns';
 
