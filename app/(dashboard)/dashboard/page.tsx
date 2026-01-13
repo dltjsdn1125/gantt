@@ -143,9 +143,16 @@ export default function DashboardPage() {
                 <h3 className="font-semibold mb-2">{project.name}</h3>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-slate-500">
-                    {project.tasks?.length || 0}개 태스크
+                    {tasks.filter((t) => t.project_id === project.id).length}개 태스크
                   </span>
-                  <span className="font-semibold">{project.avgProgress || 0}%</span>
+                  <span className="font-semibold">
+                    {(() => {
+                      const projectTasks = tasks.filter((t) => t.project_id === project.id);
+                      return projectTasks.length > 0
+                        ? Math.round(calculateProgress(projectTasks))
+                        : 0;
+                    })()}%
+                  </span>
                 </div>
               </Link>
             ))}
@@ -279,7 +286,6 @@ export default function DashboardPage() {
                     beginAtZero: true,
                     grid: {
                       color: 'rgba(148, 163, 184, 0.1)',
-                      drawBorder: false,
                     },
                     ticks: {
                       color: '#94a3b8',

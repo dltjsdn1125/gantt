@@ -30,7 +30,7 @@ export const projectSchema = z.object({
 });
 
 // Task validations
-export const taskSchema = z.object({
+const taskSchemaBase = z.object({
   project_id: z.string().uuid().optional(),
   title: z.string().min(1, '태스크명을 입력하세요').max(300),
   description: z.string().max(2000).optional(),
@@ -39,10 +39,25 @@ export const taskSchema = z.object({
   end_date: z.string().min(1, '종료일을 선택하세요'),
   priority: z.enum(['low', 'medium', 'high', 'urgent']).default('medium'),
   parent_id: z.string().uuid().optional().nullable(),
-}).refine((data) => {
+});
+
+export const taskSchema = taskSchemaBase.refine((data) => {
   const start = new Date(data.start_date);
   const end = new Date(data.end_date);
   return end >= start;
+}, {
+  message: '종료일은 시작일보다 이후여야 합니다',
+  path: ['end_date'],
+});
+
+// Task update schema (all fields optional)
+export const taskUpdateSchema = taskSchemaBase.partial().refine((data) => {
+  if (data.start_date && data.end_date) {
+    const start = new Date(data.start_date);
+    const end = new Date(data.end_date);
+    return end >= start;
+  }
+  return true;
 }, {
   message: '종료일은 시작일보다 이후여야 합니다',
   path: ['end_date'],

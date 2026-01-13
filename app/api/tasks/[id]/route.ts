@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { taskSchema } from '@/lib/validations';
+import { taskUpdateSchema } from '@/lib/validations';
 
 export async function GET(
   request: Request,
@@ -54,7 +54,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const validation = taskSchema.partial().safeParse(body);
+    const validation = taskUpdateSchema.safeParse(body);
 
     if (!validation.success) {
       return NextResponse.json(

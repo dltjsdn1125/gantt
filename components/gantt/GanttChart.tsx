@@ -39,7 +39,10 @@ export default function GanttChart({ tasks, onTaskUpdate, onProgressUpdate }: Ga
 
     // Destroy existing instance
     if (ganttInstanceRef.current) {
-      ganttInstanceRef.current.destroy();
+      // Clear the container
+      if (ganttRef.current) {
+        ganttRef.current.innerHTML = '';
+      }
     }
 
     // Create new Gantt instance
@@ -53,7 +56,6 @@ export default function GanttChart({ tasks, onTaskUpdate, onProgressUpdate }: Ga
       bar_corner_radius: 3,
       arrow_curve: 5,
       padding: 18,
-      popup_trigger: 'click',
       on_click: (task: any) => {
         console.log('Task clicked:', task);
       },
@@ -70,13 +72,13 @@ export default function GanttChart({ tasks, onTaskUpdate, onProgressUpdate }: Ga
       on_view_change: (mode: string) => {
         setViewMode(mode as 'Day' | 'Week' | 'Month');
       },
-    });
+    } as any);
 
     ganttInstanceRef.current = gantt;
 
     return () => {
-      if (ganttInstanceRef.current) {
-        ganttInstanceRef.current.destroy();
+      if (ganttInstanceRef.current && ganttRef.current) {
+        ganttRef.current.innerHTML = '';
         ganttInstanceRef.current = null;
       }
     };
